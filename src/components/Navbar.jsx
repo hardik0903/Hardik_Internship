@@ -77,7 +77,7 @@ function Navbar() {
 
         <Link to="/" className="navbar-brand" onClick={handleNavClick}>
           <div className="brand-icon">
-            <span className="material-icons-round">school</span>
+            <span className="material-icons-round" aria-hidden="true">school</span>
           </div>
           <span className="brand-text">FOSSEE Workshops</span>
         </Link>
@@ -92,7 +92,7 @@ function Navbar() {
                 onClick={handleNavClick}
                 role="menuitem"
               >
-                <span className="material-icons-round" style={{ fontSize: '18px' }}>{link.icon}</span>
+                <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '18px' }}>{link.icon}</span>
                 {link.label}
               </NavLink>
             </li>
@@ -121,12 +121,12 @@ function Navbar() {
               {dropdownOpen && (
                 <div className="user-dropdown">
                   <Link to="/profile" onClick={handleNavClick}>
-                    <span className="material-icons-round">person</span>
+                    <span className="material-icons-round" aria-hidden="true">person</span>
                     My Profile
                   </Link>
                   <div className="divider"></div>
                   <button onClick={handleLogout}>
-                    <span className="material-icons-round">logout</span>
+                    <span className="material-icons-round" aria-hidden="true">logout</span>
                     Sign Out
                   </button>
                 </div>
@@ -171,7 +171,7 @@ function Navbar() {
               onClick={handleNavClick}
               role="menuitem"
             >
-              <span className="material-icons-round">{link.icon}</span>
+              <span className="material-icons-round" aria-hidden="true">{link.icon}</span>
               {link.label}
             </NavLink>
           </li>
@@ -182,13 +182,13 @@ function Navbar() {
             <div className="divider"></div>
             <li role="none">
               <Link to="/login" onClick={handleNavClick} role="menuitem">
-                <span className="material-icons-round">login</span>
+                <span className="material-icons-round" aria-hidden="true">login</span>
                 Sign In
               </Link>
             </li>
             <li role="none">
               <Link to="/register" onClick={handleNavClick} role="menuitem">
-                <span className="material-icons-round">person_add</span>
+                <span className="material-icons-round" aria-hidden="true">person_add</span>
                 Sign Up
               </Link>
             </li>

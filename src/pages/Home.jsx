@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import './Home.css';
 
@@ -11,6 +12,11 @@ function Home() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>FOSSEE Workshop Portal | Open Source Learning</title>
+        <meta name="description" content="Promoting the use of open source software in educational institutions through hands-on technical workshops." />
+      </Helmet>
+
       <div className="home-hero animate-slide-up">
         <h1 className="home-title">Empowering Education with Open Source Software</h1>
         <p className="home-subtitle">
@@ -39,7 +45,7 @@ function Home() {
       <div className="home-features animate-fade-in" style={{ animationDelay: '0.2s' }}>
         <div className="feature-card">
           <div className="feature-icon">
-            <span className="material-icons-round">volunteer_activism</span>
+            <span className="material-icons-round" aria-hidden="true">volunteer_activism</span>
           </div>
           <h3>Free & Open Source</h3>
           <p>All software taught in our workshops is completely free and open source, eliminating licensing costs for institutions.</p>
@@ -47,7 +53,7 @@ function Home() {
         
         <div className="feature-card">
           <div className="feature-icon">
-            <span className="material-icons-round">model_training</span>
+            <span className="material-icons-round" aria-hidden="true">model_training</span>
           </div>
           <h3>Expert Instructors</h3>
           <p>Empower your students with hands-on training by FOSSEE fellows and experts from premium technical universities.</p>
@@ -55,7 +61,7 @@ function Home() {
 
         <div className="feature-card">
           <div className="feature-icon">
-            <span className="material-icons-round">workspace_premium</span>
+            <span className="material-icons-round" aria-hidden="true">workspace_premium</span>
           </div>
           <h3>Certification</h3>
           <p>Participants receive certificates upon successful completion of the workshop and a post-workshop proficiency test.</p>

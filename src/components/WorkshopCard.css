@@ -1,0 +1,114 @@
+/*
+  Workshop Card Styles
+  
+  Cards are the primary way we display workshop info. Each card
+  has a subtle gradient on the left edge to give it personality,
+  and the whole thing lifts up slightly on hover.
+*/
+
+.workshop-card {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+/* colored accent bar on the left side of each card */
+.workshop-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-secondary-accent));
+  border-radius: 4px 0 0 4px;
+}
+
+.workshop-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.workshop-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.workshop-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.workshop-card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+
+.workshop-card-body {
+  margin-bottom: var(--space-md);
+}
+
+.workshop-card-body p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  /* only show 3 lines of description, then cut off */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.workshop-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.meta-item .material-icons-round {
+  font-size: 16px;
+}
+
+.workshop-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- grid layout for listing cards ---- */
+.workshop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+}
+
+@media (max-width: 480px) {
+  .workshop-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .workshop-card-header {
+    flex-direction: column;
+  }
+}

@@ -21,7 +21,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div id="root">
+        <div className="app-layout">
           <Navbar />
           <Routes>
             {/* Public Routes */}

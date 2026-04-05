@@ -1,0 +1,75 @@
+/*
+  Propose Workshop CSS
+
+  A simple, clean form interface for proposing a new workshop.
+*/
+
+.propose-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.propose-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+}
+
+.propose-header {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.propose-header h1 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-xs);
+}
+
+.propose-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tnc-box {
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--color-accent);
+}
+
+.checkbox-group label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  cursor: pointer;
+}
+
+.btn-full-width {
+  width: 100%;
+  padding: 14px;
+}
+
+@media (max-width: 480px) {
+  .propose-card {
+    padding: var(--space-lg);
+  }
+}

@@ -1,0 +1,170 @@
+/*
+  Workshop Detail CSS
+
+  Used for displaying a specific instance of a workshop booking.
+  Layout includes a main content area and a comments section.
+*/
+
+.instance-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.instance-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.instance-title {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.instance-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.instance-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.meta-box {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.meta-box .material-icons-round {
+  color: var(--color-accent);
+  margin-top: 2px;
+}
+
+.meta-box-content h4 {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.meta-box-content p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+/* Instructor Actions */
+.action-bar {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 2px solid var(--color-border);
+}
+
+.comments-header {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.comment-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.comment-author {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.comment-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.comment-body {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+}
+
+.add-comment-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.add-comment-card h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-md);
+}
+
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.comment-meta-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visibility-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .instance-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,158 @@
+/*
+  Workshop Type Detail CSS
+  
+  The detail page shows complete information about a specific
+  workshop type. It has a nice header area and clear content sections.
+*/
+
+.detail-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.detail-title {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-xs);
+}
+
+.detail-meta {
+  display: flex;
+  gap: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.detail-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.detail-meta .material-icons-round {
+  font-size: 18px;
+  color: var(--color-text-muted);
+}
+
+/* layout structure */
+.detail-content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-2xl);
+}
+
+/* content sections */
+.detail-section {
+  margin-bottom: var(--space-xl);
+}
+
+.detail-section h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+.detail-section p {
+  white-space: pre-line;
+  color: var(--color-text-secondary);
+}
+
+/* sidebar card for attachments / actions */
+.sidebar-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-lg));
+}
+
+.sidebar-card h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sidebar-card h3 .material-icons-round {
+  color: var(--color-accent);
+}
+
+.attachment-list {
+  list-style: none;
+  margin-bottom: var(--space-xl);
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 12px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  transition: all var(--transition-fast);
+}
+
+.attachment-item:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-text-muted);
+}
+
+.attachment-item .material-icons-round {
+  color: var(--color-text-muted);
+}
+
+.attachment-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  flex: 1;
+  text-decoration: none;
+}
+
+.attachment-item a:hover {
+  text-decoration: underline;
+}
+
+.sidebar-action {
+  width: 100%;
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sidebar-action .btn {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .detail-content-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar-card {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .detail-header-top {
+    flex-direction: column;
+  }
+  
+  .detail-meta {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}

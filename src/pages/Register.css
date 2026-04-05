@@ -1,0 +1,130 @@
+/*
+  Register Page Styles
+  
+  The registration form has a lot of fields (matching the Django model),
+  so we use a two-column grid on desktop to keep it compact, and
+  stack everything vertically on mobile.
+*/
+
+.register-page {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  background: radial-gradient(
+    ellipse at 60% 20%,
+    rgba(108, 99, 255, 0.06) 0%,
+    transparent 50%
+  );
+}
+
+.register-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  animation: slideUp 0.5s ease;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.register-header h1 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-sm);
+}
+
+/* section dividers within the form */
+.form-section {
+  margin-bottom: var(--space-lg);
+}
+
+.form-section-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* two fields side by side on desktop */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.register-form .btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: var(--font-size-base);
+  margin-top: var(--space-sm);
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.register-footer p {
+  font-size: var(--font-size-sm);
+}
+
+/* radio group for position selection */
+.radio-group {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 16px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex: 1;
+}
+
+.radio-option:hover {
+  border-color: var(--color-text-muted);
+}
+
+.radio-option.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.radio-option input[type="radio"] {
+  accent-color: var(--color-accent);
+}
+
+.radio-option span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: var(--space-lg);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .radio-group {
+    flex-direction: column;
+  }
+}

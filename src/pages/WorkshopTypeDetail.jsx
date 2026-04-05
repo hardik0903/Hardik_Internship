@@ -45,7 +45,7 @@ function WorkshopTypeDetail() {
       {/* breadcrumb navigation */}
       <div className="mb-lg">
         <Link to="/workshops" style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>
-          <span className="material-icons-round" style={{ fontSize: '16px' }}>arrow_back</span>
+          <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '16px' }}>arrow_back</span>
           Back to all workshops
         </Link>
       </div>
@@ -58,7 +58,7 @@ function WorkshopTypeDetail() {
           {user ? (
             isInstructor() ? (
               <button className="btn btn-secondary">
-                <span className="material-icons-round">edit</span>
+                <span className="material-icons-round" aria-hidden="true">edit</span>
                 Edit Workshop
               </button>
             ) : (
@@ -66,7 +66,7 @@ function WorkshopTypeDetail() {
                 className="btn btn-primary"
                 onClick={() => navigate('/propose', { state: { workshopTypeId: workshop.id } })}
               >
-                <span className="material-icons-round">event_available</span>
+                <span className="material-icons-round" aria-hidden="true">event_available</span>
                 Propose this Workshop
               </button>
             )
@@ -79,11 +79,11 @@ function WorkshopTypeDetail() {
 
         <div className="detail-meta">
           <span>
-            <span className="material-icons-round">schedule</span>
+            <span className="material-icons-round" aria-hidden="true">schedule</span>
             {workshop.duration} Day{workshop.duration > 1 ? 's' : ''}
           </span>
           <span>
-            <span className="material-icons-round">category</span>
+            <span className="material-icons-round" aria-hidden="true">category</span>
             Technical Training
           </span>
         </div>
@@ -110,7 +110,7 @@ function WorkshopTypeDetail() {
         <div className="detail-sidebar">
           <div className="sidebar-card">
             <h3>
-              <span className="material-icons-round">folder_zip</span>
+              <span className="material-icons-round" aria-hidden="true">folder_zip</span>
               Resources
             </h3>
             
@@ -121,12 +121,12 @@ function WorkshopTypeDetail() {
             <ul className="attachment-list">
               {mockAttachments.map(file => (
                 <li key={file.id} className="attachment-item">
-                  <span className="material-icons-round">picture_as_pdf</span>
+                  <span className="material-icons-round" aria-hidden="true">picture_as_pdf</span>
                   <a href="#" className="attachment-name" onClick={(e) => e.preventDefault()}>
                     {file.name}
                   </a>
                   <button className="btn-outline" style={{ padding: '4px', border: 'none', background: 'none', color: 'var(--color-text-muted)' }} title="Download">
-                    <span className="material-icons-round" style={{ fontSize: '18px' }}>download</span>
+                    <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '18px' }}>download</span>
                   </button>
                 </li>
               ))}
@@ -134,7 +134,7 @@ function WorkshopTypeDetail() {
 
             {isInstructor() && (
               <button className="btn btn-secondary btn-sm" style={{ width: '100%' }}>
-                <span className="material-icons-round">upload_file</span>
+                <span className="material-icons-round" aria-hidden="true">upload_file</span>
                 Manage Attachments
               </button>
             )}

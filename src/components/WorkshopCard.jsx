@@ -34,10 +34,14 @@ function WorkshopCard({ workshop, variant = 'type' }) {
 
         <div className="workshop-card-footer">
           <div className="meta-item">
-            <span className="material-icons-round">schedule</span>
+            <span className="material-icons-round" aria-hidden="true">schedule</span>
             {workshop.duration} day{workshop.duration > 1 ? 's' : ''}
           </div>
-          <Link to={`/workshops/${workshop.id}`} className="btn btn-outline btn-sm">
+          <Link 
+            to={`/workshops/${workshop.id}`} 
+            className="btn btn-outline btn-sm"
+            aria-label={`View details for ${workshop.name}`}
+          >
             View Details
           </Link>
         </div>
@@ -60,12 +64,12 @@ function WorkshopCard({ workshop, variant = 'type' }) {
 
       <div className="workshop-card-meta">
         <div className="meta-item">
-          <span className="material-icons-round">calendar_today</span>
+          <span className="material-icons-round" aria-hidden="true">calendar_today</span>
           {workshop.date}
         </div>
         {workshop.coordinatorInstitute && (
           <div className="meta-item">
-            <span className="material-icons-round">school</span>
+            <span className="material-icons-round" aria-hidden="true">school</span>
             {workshop.coordinatorInstitute}
           </div>
         )}
@@ -73,10 +77,14 @@ function WorkshopCard({ workshop, variant = 'type' }) {
 
       <div className="workshop-card-footer">
         <div className="meta-item">
-          <span className="material-icons-round">info</span>
+          <span className="material-icons-round" aria-hidden="true">info</span>
           {workshop.workshopType?.duration || 1} day workshop
         </div>
-        <Link to={`/workshop/${workshop.id}`} className="btn btn-outline btn-sm">
+        <Link 
+          to={`/workshop/${workshop.id}`} 
+          className="btn btn-outline btn-sm"
+          aria-label={`View details for ${workshop.workshopType?.name || 'Workshop'}`}
+        >
           Details
         </Link>
       </div>

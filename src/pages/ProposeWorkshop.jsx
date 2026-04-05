@@ -110,13 +110,15 @@ function ProposeWorkshop() {
                 className={`input-field ${errors.workshopTypeId ? 'error' : ''}`}
                 value={formData.workshopTypeId}
                 onChange={handleChange}
+                aria-required="true"
+                aria-invalid={!!errors.workshopTypeId}
               >
                 <option value="" disabled>Select a workshop...</option>
                 {mockWorkshopTypes.map(ws => (
                   <option key={ws.id} value={ws.id}>{ws.name}</option>
                 ))}
               </select>
-              {errors.workshopTypeId && <span className="error-text">{errors.workshopTypeId}</span>}
+              {errors.workshopTypeId && <span className="error-text" role="alert">{errors.workshopTypeId}</span>}
             </div>
 
             <div className="form-group">
@@ -129,16 +131,18 @@ function ProposeWorkshop() {
                 value={formData.date}
                 onChange={handleChange}
                 min={new Date().toISOString().split('T')[0]} // restrict past dates
+                aria-required="true"
+                aria-invalid={!!errors.date}
               />
-              {errors.date && <span className="error-text">{errors.date}</span>}
+              {errors.date && <span className="error-text" role="alert">{errors.date}</span>}
             </div>
 
             {selectedType && (
               <div className="animate-fade-in">
-                <label style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xs)', display: 'block' }}>
+                <label id="tnc-label" style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xs)', display: 'block' }}>
                   Terms and Conditions
                 </label>
-                <div className="tnc-box">
+                <div className="tnc-box" aria-labelledby="tnc-label" tabIndex="0">
                   {selectedType.termsAndConditions}
                 </div>
                 
@@ -149,12 +153,14 @@ function ProposeWorkshop() {
                     name="tncAccepted"
                     checked={formData.tncAccepted}
                     onChange={handleChange}
+                    aria-required="true"
+                    aria-invalid={!!errors.tncAccepted}
                   />
                   <div>
                     <label htmlFor="tncAccepted">
                       I have read and accept the terms and conditions for this workshop.
                     </label>
-                    {errors.tncAccepted && <span className="error-text" style={{ display: 'block', marginTop: '4px' }}>{errors.tncAccepted}</span>}
+                    {errors.tncAccepted && <span className="error-text" role="alert" style={{ display: 'block', marginTop: '4px' }}>{errors.tncAccepted}</span>}
                   </div>
                 </div>
               </div>

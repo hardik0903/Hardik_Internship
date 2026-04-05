@@ -38,11 +38,30 @@ function Navbar() {
     setDropdownOpen(false);
   }
 
+  // close dropdown/mobile menu on Escape key
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+        setDropdownOpen(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   function handleLogout() {
     logout();
     navigate('/login');
     handleNavClick();
   }
+
+  // Links configuration for reuse
+  const navLinks = [
+    { path: '/', label: 'Home', icon: 'home' },
+    { path: '/workshops', label: 'Workshops', icon: 'explore' },
+    { path: '/statistics', label: 'Stats', icon: 'analytics' },
+  ];
 
   // figure out the user's initials for the avatar circle
   function getUserInitials() {
@@ -56,13 +75,29 @@ function Navbar() {
     <nav className="navbar" role="navigation" aria-label="Main navigation">
       <div className="navbar-inner">
 
-        {/* brand / logo */}
         <Link to="/" className="navbar-brand" onClick={handleNavClick}>
           <div className="brand-icon">
             <span className="material-icons-round">school</span>
           </div>
-          FOSSEE Workshops
+          <span className="brand-text">FOSSEE Workshops</span>
         </Link>
+
+        {/* Desktop Links (Hidden on mobile) */}
+        <ul className="navbar-links desktop-only" role="menubar">
+          {navLinks.map((link) => (
+            <li key={link.path} role="none">
+              <NavLink 
+                to={link.path} 
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                onClick={handleNavClick}
+                role="menuitem"
+              >
+                <span className="material-icons-round" style={{ fontSize: '18px' }}>{link.icon}</span>
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
 
         {/* Hamburger, ThemeToggle, and User Menu grouped on the right */}
         <div className="navbar-right">
@@ -121,10 +156,51 @@ function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu Links */}
+      <ul 
+        className={`navbar-links mobile-only ${mobileOpen ? 'open' : ''}`}
+        role="menu"
+        aria-hidden={!mobileOpen}
+      >
+        <li className="mobile-menu-header">Menu</li>
+        {navLinks.map((link) => (
+          <li key={link.path} role="none">
+            <NavLink 
+              to={link.path} 
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              onClick={handleNavClick}
+              role="menuitem"
+            >
+              <span className="material-icons-round">{link.icon}</span>
+              {link.label}
+            </NavLink>
+          </li>
+        ))}
+        {/* Mobile-only Auth Links (if not logged in) */}
+        {!user && (
+          <>
+            <div className="divider"></div>
+            <li role="none">
+              <Link to="/login" onClick={handleNavClick} role="menuitem">
+                <span className="material-icons-round">login</span>
+                Sign In
+              </Link>
+            </li>
+            <li role="none">
+              <Link to="/register" onClick={handleNavClick} role="menuitem">
+                <span className="material-icons-round">person_add</span>
+                Sign Up
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
+
       {/* dark overlay behind mobile menu */}
       <div
         className={`mobile-overlay ${mobileOpen ? 'visible' : ''}`}
         onClick={() => setMobileOpen(false)}
+        aria-hidden="true"
       ></div>
     </nav>
   );

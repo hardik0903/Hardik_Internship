@@ -12,7 +12,7 @@
   padding: var(--space-xl) var(--space-md);
   background: radial-gradient(
     ellipse at 60% 20%,
-    rgba(108, 99, 255, 0.06) 0%,
+    var(--color-primary-soft) 0%,
     transparent 50%
   );
 }
@@ -25,6 +25,7 @@
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
   animation: slideUp 0.5s ease;
+  box-shadow: var(--shadow-lg);
 }
 
 .register-header {
@@ -35,6 +36,11 @@
 .register-header h1 {
   font-size: var(--font-size-2xl);
   margin-bottom: var(--space-sm);
+  color: var(--color-text-primary);
+}
+
+.register-header p {
+  color: var(--color-text-secondary);
 }
 
 /* section dividers within the form */
@@ -76,6 +82,7 @@
 
 .register-footer p {
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
 
 /* radio group for position selection */
@@ -115,9 +122,18 @@
   color: var(--color-text-primary);
 }
 
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+
 @media (max-width: 480px) {
   .register-card {
     padding: var(--space-lg);
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
 
   .form-row {

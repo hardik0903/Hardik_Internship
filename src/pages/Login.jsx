@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
@@ -8,13 +8,6 @@ import './Login.css';
   
   Pretty simple — email and password inputs, submit button,
   links to register and forgot password.
-  
-  The form validates that both fields are filled before submitting.
-  If login fails (wrong credentials), we show an error message
-  right above the form so users know what went wrong.
-  
-  We also show a little hint about the demo credentials so testers
-  can actually explore the app without getting stuck.
 */
 
 function Login() {
@@ -30,7 +23,6 @@ function Login() {
     e.preventDefault();
     setError('');
 
-    // basic validation — just checking they're not empty
     if (!email.trim() || !password.trim()) {
       setError('Please fill in both email and password.');
       return;
@@ -38,8 +30,6 @@ function Login() {
 
     setLoading(true);
 
-    // small timeout to simulate a network request
-    // (makes it feel more realistic than instant login)
     setTimeout(() => {
       const result = login(email, password);
       
@@ -54,7 +44,12 @@ function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-card">
+      <Helmet>
+        <title>Sign In | FOSSEE Workshop Portal</title>
+        <meta name="description" content="Access your FOSSEE account to propose, manage, and track technical workshops." />
+      </Helmet>
+
+      <div className="login-card animate-slide-up">
         
         <div className="login-header">
           <h1>Welcome Back</h1>
@@ -64,6 +59,7 @@ function Login() {
         {/* show error if login failed */}
         {error && (
           <div className="login-error" role="alert">
+            <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '18px', marginRight: '8px', verticalAlign: 'middle' }}>error_outline</span>
             {error}
           </div>
         )}
@@ -80,6 +76,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               required
+              aria-required="true"
             />
           </div>
 
@@ -94,6 +91,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
               required
+              aria-required="true"
             />
           </div>
 

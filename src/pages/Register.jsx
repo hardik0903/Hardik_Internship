@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -11,23 +11,15 @@ import './Register.css';
 
 /*
   Register Page
-
-  The registration form is quite extensive because it mirrors the Django
-  UserRegistrationForm + ProfileForm. We need to collect:
-  - Account info (name, email, password)
-  - Professional info (title, institute, department, position)
-  - Contact & location (phone, state, city)
   
-  I've split the form into sections with clear headers so users
-  aren't overwhelmed by a wall of inputs. The two-column layout on
-  desktop helps keep the form compact.
+  Comprehensive registration form with section-based navigation and full
+  accessibility features.
 */
 
 function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  // form state — each field maps to the Django model
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -50,7 +42,6 @@ function Register() {
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // clear the error for this field when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -58,7 +49,6 @@ function Register() {
 
   function validate() {
     const newErrors = {};
-
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
@@ -79,11 +69,8 @@ function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     if (!validate()) return;
-
     setLoading(true);
-
     setTimeout(() => {
       const result = register(formData);
       if (result.success) {
@@ -93,7 +80,6 @@ function Register() {
     }, 800);
   }
 
-  // helper to render a form field — saves us from repeating the same JSX
   function renderField(label, name, type = 'text', placeholder = '', options = {}) {
     return (
       <div className="form-group">
@@ -106,14 +92,15 @@ function Register() {
           placeholder={placeholder}
           value={formData[name]}
           onChange={handleChange}
+          aria-required="true"
+          aria-invalid={!!errors[name]}
           {...options}
         />
-        {errors[name] && <span className="error-text">{errors[name]}</span>}
+        {errors[name] && <span className="error-text" role="alert">{errors[name]}</span>}
       </div>
     );
   }
 
-  // helper for dropdown selects
   function renderSelect(label, name, choices) {
     return (
       <div className="form-group">
@@ -124,6 +111,7 @@ function Register() {
           className="input-field"
           value={formData[name]}
           onChange={handleChange}
+          aria-required="true"
         >
           {choices.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -135,8 +123,12 @@ function Register() {
 
   return (
     <div className="register-page">
-      <div className="register-card">
+      <Helmet>
+        <title>Create Account | FOSSEE Workshop Portal</title>
+        <meta name="description" content="Register as a coordinator or instructor to join the FOSSEE network and promote open source education." />
+      </Helmet>
 
+      <div className="register-card animate-slide-up">
         <div className="register-header">
           <h1>Create Account</h1>
           <p>Join the FOSSEE workshop community</p>
@@ -144,7 +136,6 @@ function Register() {
 
         <form className="register-form" onSubmit={handleSubmit} noValidate>
           
-          {/* ---- account details section ---- */}
           <div className="form-section">
             <div className="form-section-title">Account Details</div>
             <div className="form-row">
@@ -158,7 +149,6 @@ function Register() {
             </div>
           </div>
 
-          {/* ---- professional info section ---- */}
           <div className="form-section">
             <div className="form-section-title">Professional Information</div>
             <div className="form-row">
@@ -167,13 +157,10 @@ function Register() {
             </div>
             {renderField('Institute / College', 'institute', 'text', 'e.g. IIT Bombay')}
 
-            {/* position selection — coordinator or instructor */}
-            <div className="form-group">
-              <label>Position</label>
+            <div className="form-group" role="radiogroup" aria-labelledby="position-label">
+              <label id="position-label">Position</label>
               <div className="radio-group">
-                <label
-                  className={`radio-option ${formData.position === 'coordinator' ? 'selected' : ''}`}
-                >
+                <label className={`radio-option ${formData.position === 'coordinator' ? 'selected' : ''}`}>
                   <input
                     type="radio"
                     name="position"
@@ -183,9 +170,7 @@ function Register() {
                   />
                   <span>Coordinator</span>
                 </label>
-                <label
-                  className={`radio-option ${formData.position === 'instructor' ? 'selected' : ''}`}
-                >
+                <label className={`radio-option ${formData.position === 'instructor' ? 'selected' : ''}`}>
                   <input
                     type="radio"
                     name="position"
@@ -196,13 +181,12 @@ function Register() {
                   <span>Instructor</span>
                 </label>
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                Select Coordinator to organise workshops. Select Instructor to conduct workshops.
+              <p className="form-hint" id="position-hint">
+                Coordinators organise workshops at institutes. Instructors conduct them.
               </p>
             </div>
           </div>
 
-          {/* ---- contact & location section ---- */}
           <div className="form-section">
             <div className="form-section-title">Contact & Location</div>
             <div className="form-row">

@@ -11,10 +11,11 @@
   top: 0;
   z-index: 100;
   height: var(--nav-height);
-  background: rgba(15, 15, 26, 0.85);
+  background: var(--color-bg-nav);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .navbar-inner {
@@ -85,11 +86,18 @@
   color: var(--color-accent);
 }
 
-/* user menu on the right side */
-.navbar-user {
+/* Navbar Right Actions */
+.navbar-right {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+}
+
+/* User Menu */
+.navbar-user {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .user-menu-trigger {
@@ -123,11 +131,15 @@
   color: white;
 }
 
-/* dropdown menu that appears under the user avatar */
+.user-name-desktop {
+  display: inline;
+}
+
+/* dropdown menu */
 .user-dropdown {
   position: absolute;
   top: calc(var(--nav-height) - 4px);
-  right: var(--space-md);
+  right: 0;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -135,6 +147,7 @@
   min-width: 180px;
   box-shadow: var(--shadow-lg);
   animation: fadeIn 0.2s ease;
+  z-index: 110;
 }
 
 .user-dropdown a,
@@ -165,6 +178,12 @@
   height: 1px;
   background: var(--color-border);
   margin: var(--space-xs) 0;
+}
+
+/* Auth Buttons */
+.navbar-auth-desktop {
+  display: flex;
+  gap: var(--space-sm);
 }
 
 /* hamburger button — only shows on mobile */
@@ -200,16 +219,15 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* auth buttons in the navbar */
-.navbar-auth {
-  display: flex;
-  gap: var(--space-sm);
-}
-
 /* ---- mobile styles ---- */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
+  }
+
+  .user-name-desktop, 
+  .navbar-auth-desktop {
+    display: none;
   }
 
   .navbar-links {
@@ -225,6 +243,7 @@
     gap: var(--space-xs);
     transition: right var(--transition-base);
     overflow-y: auto;
+    z-index: 100;
   }
 
   .navbar-links.open {
@@ -251,14 +270,9 @@
   .mobile-overlay.visible {
     display: block;
   }
+}
 
-  .navbar-auth {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .navbar-auth .btn {
-    width: 100%;
-    justify-content: center;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

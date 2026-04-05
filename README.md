@@ -6,9 +6,7 @@ This repository contains the React-based frontend redesign for the FOSSEE Worksh
 
 Below is a brief visual demonstration showcasing the new user interface, fluid navigation, mobile menus, and interactive dashboards:
 
-![FOSSEE App Walkthrough](file:///C:/Users/Hardik/.gemini/antigravity/brain/39fa1a1d-34d1-41e1-9933-ab75f23733a0/fossee_app_walkthrough_1775394189112.webp)
-
-*(Note: If the embedded file does not render in your markdown viewer, you can view the raw file located at `C:/Users/Hardik/.gemini/antigravity/brain/39fa1a1d-34d1-41e1-9933-ab75f23733a0/fossee_app_walkthrough_1775394189112.webp`)*
+![FOSSEE App Walkthrough](./public/demo.webp)
 
 ## 🧠 Design Reasoning & Architecture Choices
 

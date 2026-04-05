@@ -1,23 +1,32 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import WorkshopCard from '../components/WorkshopCard';
-import { mockWorkshops } from '../data/mockData';
 import './Dashboard.css';
-
-/*
-  Dashboard Page
-
-  This page behaves differently based on user role:
-  - Coordinators see workshops they have proposed (all statuses).
-  - Instructors see pending workshops (to accept/reject) and accepted ones.
-  
-  We use tabs to filter the workshops by status (All, Pending, Accepted).
-*/
 
 function Dashboard() {
   const { user, isInstructor } = useAuth();
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab ] = useState('all');
+  const [workshops, setWorkshops] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWorkshops = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/workshops/');
+        if (!response.ok) throw new Error('Failed to fetch workshops');
+        const data = await response.json();
+        setWorkshops(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWorkshops();
+  }, []);
 
   // Filter workshops relevant to the current user
   const userWorkshops = useMemo(() => {
@@ -25,18 +34,17 @@ function Dashboard() {
     
     let relevant = [];
     if (isInstructor()) {
-      // Instructors see pending + accepted where they are the instructor
-      relevant = mockWorkshops.filter(ws => 
-        ws.status === 0 || (ws.instructorId === user.id && ws.status === 1)
+      // Instructors see pending + accepted
+      relevant = workshops.filter(ws => 
+        ws.status === 0 || (ws.instructor === user.id && ws.status === 1)
       );
     } else {
       // Coordinators see all workshops they proposed
-      relevant = mockWorkshops.filter(ws => ws.coordinatorId === user.id);
+      relevant = workshops.filter(ws => ws.coordinator === user.id);
     }
 
-    // Sort by date (newest first)
-    return relevant.sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [user, isInstructor]);
+    return [...relevant].sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [user, isInstructor, workshops]);
 
   // Apply tab filter
   const displayedWorkshops = useMemo(() => {
@@ -58,6 +66,11 @@ function Dashboard() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>Dashboard | FOSSEE Workshop Portal</title>
+        <meta name="description" content="Manage your FOSSEE workshop bookings, proposals, and instructor status in one modern dashboard." />
+      </Helmet>
+
       <div className="dashboard-header animate-slide-up">
         <div className="dashboard-title">
           <h1>Welcome, {user?.firstName}</h1>
@@ -65,7 +78,7 @@ function Dashboard() {
         </div>
         {!isInstructor() && (
           <Link to="/propose" className="btn btn-primary">
-            <span className="material-icons-round">add</span>
+            <span className="material-icons-round" aria-hidden="true">add</span>
             Propose Workshop
           </Link>
         )}
@@ -74,7 +87,7 @@ function Dashboard() {
       <div className="dashboard-stats animate-fade-in" style={{ animationDelay: '0.1s' }}>
         <div className="stat-card">
           <div className="stat-icon blue">
-            <span className="material-icons-round">book_online</span>
+            <span className="material-icons-round" aria-hidden="true">book_online</span>
           </div>
           <div className="stat-content">
             <h3>{stats.total}</h3>
@@ -83,7 +96,7 @@ function Dashboard() {
         </div>
         <div className="stat-card">
           <div className="stat-icon yellow">
-            <span className="material-icons-round">pending_actions</span>
+            <span className="material-icons-round" aria-hidden="true">pending_actions</span>
           </div>
           <div className="stat-content">
             <h3>{stats.pending}</h3>
@@ -92,7 +105,7 @@ function Dashboard() {
         </div>
         <div className="stat-card">
           <div className="stat-icon green">
-            <span className="material-icons-round">event_available</span>
+            <span className="material-icons-round" aria-hidden="true">event_available</span>
           </div>
           <div className="stat-content">
             <h3>{stats.accepted}</h3>
@@ -101,35 +114,48 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="dashboard-tabs animate-fade-in" style={{ animationDelay: '0.2s' }}>
+      <div className="dashboard-tabs animate-fade-in" style={{ animationDelay: '0.2s' }} role="tablist">
         <button 
           className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
           onClick={() => setActiveTab('all')}
+          role="tab"
+          aria-selected={activeTab === 'all'}
+          aria-controls="workshop-grid"
         >
           All Workshops
         </button>
         <button 
           className={`tab-btn ${activeTab === 'pending' ? 'active' : ''}`}
           onClick={() => setActiveTab('pending')}
+          role="tab"
+          aria-selected={activeTab === 'pending'}
+          aria-controls="workshop-grid"
         >
           Pending
         </button>
         <button 
           className={`tab-btn ${activeTab === 'accepted' ? 'active' : ''}`}
           onClick={() => setActiveTab('accepted')}
+          role="tab"
+          aria-selected={activeTab === 'accepted'}
+          aria-controls="workshop-grid"
         >
           Accepted
         </button>
       </div>
 
-      <div className="workshop-grid animate-fade-in" style={{ animationDelay: '0.3s' }}>
-        {displayedWorkshops.length > 0 ? (
+      <div id="workshop-grid" className="workshop-grid animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        {loading ? (
+          <div className="loading-spinner">Loading workshops...</div>
+        ) : error ? (
+          <div className="error-message">Error: {error}</div>
+        ) : displayedWorkshops.length > 0 ? (
           displayedWorkshops.map(ws => (
             <WorkshopCard key={ws.id} workshop={ws} variant="instance" />
           ))
         ) : (
           <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-            <div className="empty-icon material-icons-round">assignment_late</div>
+            <div className="empty-icon material-icons-round" aria-hidden="true">assignment_late</div>
             <h3>No workshops found</h3>
             <p className="text-muted">You don't have any workshops matching this status.</p>
           </div>

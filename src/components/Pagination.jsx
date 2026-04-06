@@ -42,7 +42,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         disabled={currentPage === 1}
         aria-label="Previous page"
       >
-        <span className="material-icons-round">chevron_left</span>
+        <span className="material-icons-round" aria-hidden="true">chevron_left</span>
       </button>
 
       {getPageNumbers().map(page => (
@@ -50,7 +50,6 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           key={page}
           className={`pagination-btn ${page === currentPage ? 'active' : ''}`}
           onClick={() => onPageChange(page)}
-          aria-label={`Page ${page}`}
           aria-current={page === currentPage ? 'page' : undefined}
         >
           {page}
@@ -63,7 +62,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         disabled={currentPage === totalPages}
         aria-label="Next page"
       >
-        <span className="material-icons-round">chevron_right</span>
+        <span className="material-icons-round" aria-hidden="true">chevron_right</span>
       </button>
     </nav>
   );

@@ -16,7 +16,11 @@ function StatusBadge({ status }) {
   const info = STATUS_MAP[status] || STATUS_MAP[0];
 
   return (
-    <span className={`badge ${info.className}`}>
+    <span 
+      className={`badge ${info.className}`} 
+      role="status"
+      aria-label={`Status: ${info.label}`}
+    >
       {info.label}
     </span>
   );

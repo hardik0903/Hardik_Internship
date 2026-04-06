@@ -18,13 +18,13 @@ const ThemeToggle = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'var(--text-main)',
+        color: 'var(--color-text-primary)',
         fontSize: '1.2rem',
         borderRadius: '50%',
         transition: 'background-color 0.3s ease',
         marginLeft: '1rem'
       }}
-      onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--glass-bg)'}
+      onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-bg-alt)'}
       onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
     >
       {theme === 'dark' ? (

@@ -50,13 +50,13 @@
 }
 
 .stat-icon.green {
-  background: var(--color-success-soft, rgba(46, 204, 113, 0.15));
-  color: var(--color-success, #2ecc71);
+  background: var(--color-success-soft);
+  color: var(--color-success);
 }
 
 .stat-icon.yellow {
-  background: var(--color-warning-soft, rgba(243, 156, 18, 0.15));
-  color: var(--color-warning, #f39c12);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
 }
 
 .stat-content h3 {

@@ -51,6 +51,16 @@
   --color-error: #e74c3c;
   --color-info: #3498db;
 
+  /* status soft backgrounds */
+  --color-success-soft: rgba(46, 204, 113, 0.15);
+  --color-warning-soft: rgba(243, 156, 18, 0.15);
+  --color-error-soft: rgba(231, 76, 60, 0.15);
+  --color-info-soft: rgba(52, 152, 219, 0.15);
+
+  /* primary alias (used by Dashboard stat cards) */
+  --color-primary: var(--color-secondary-accent);
+  --color-primary-soft: var(--color-secondary-soft);
+
   /* borders & surfaces */
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-focus: var(--color-accent);
@@ -102,18 +112,36 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 4px 14px rgba(233, 69, 96, 0.35);
 }
 
 [data-theme='light'] {
-  --bg-card: #ffffff;
-  --bg-input: #f1f5f9;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --nav-bg: rgba(248, 250, 252, 0.8);
-  --primary: #6366f1;
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f1f5f9;
+  --color-bg-hover: #e2e8f0;
+  --color-bg-nav: rgba(248, 250, 252, 0.85);
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #f8fafc;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-focus: var(--color-accent);
+  --color-glass: rgba(255, 255, 255, 0.8);
+  --color-glass-border: rgba(0, 0, 0, 0.05);
+
+  --color-success-soft: rgba(46, 204, 113, 0.12);
+  --color-warning-soft: rgba(243, 156, 18, 0.12);
+  --color-error-soft: rgba(231, 76, 60, 0.12);
+  --color-info-soft: rgba(52, 152, 219, 0.12);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 4px 14px rgba(233, 69, 96, 0.25);
 }
 
 /* ---- base styles ---- */
@@ -125,9 +153,9 @@ html {
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background-color: var(--bg-page);
-  color: var(--text-main);
+  font-family: var(--font-family);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
@@ -358,17 +386,17 @@ textarea.input-field {
 }
 
 .badge-pending {
-  background: rgba(243, 156, 18, 0.15);
+  background: var(--color-warning-soft);
   color: var(--color-warning);
 }
 
 .badge-accepted {
-  background: rgba(46, 204, 113, 0.15);
+  background: var(--color-success-soft);
   color: var(--color-success);
 }
 
 .badge-deleted {
-  background: rgba(231, 76, 60, 0.15);
+  background: var(--color-error-soft);
   color: var(--color-error);
 }
 

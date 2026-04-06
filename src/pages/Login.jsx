@@ -48,6 +48,10 @@ function Login() {
       <Helmet>
         <title>Sign In | FOSSEE Workshop Portal</title>
         <meta name="description" content="Access your FOSSEE account to propose, manage, and track technical workshops." />
+        <meta property="og:title" content="Sign In | FOSSEE Workshop Portal" />
+        <meta property="og:description" content="Access your FOSSEE account to propose, manage, and track technical workshops." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
 
       <div className="login-card animate-slide-up">
@@ -114,9 +118,11 @@ function Login() {
 
         {/* demo info so people can actually test the app */}
         <div className="demo-hint">
-          <strong>Demo:</strong> Use any email + password (min 4 chars) to sign in as a coordinator.
+          <strong>Demo Accounts:</strong>
           <br />
-          Use <strong>sharma@iitb.ac.in</strong> for instructor view.
+          <strong>Coordinator:</strong> rajesh@college.edu (any password, min 4 chars)
+          <br />
+          <strong>Instructor:</strong> sharma@iitb.ac.in (any password, min 4 chars)
         </div>
       </div>
     </div>

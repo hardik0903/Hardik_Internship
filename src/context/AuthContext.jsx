@@ -29,14 +29,9 @@ export function AuthProvider({ children }) {
       return { success: true };
     }
     
-    // for demo purposes, if the email isn't in our mock data but looks valid,
-    // we'll log them in as the first coordinator user
-    if (email && password && password.length >= 4) {
-      setUser(mockUsers[0]); // default to coordinator
-      return { success: true };
-    }
-
-    return { success: false, error: 'Invalid email or password. Check your credentials and try again.' };
+    // Only known demo accounts can log in — unknown credentials always fail.
+    // This prevents misleading "any email works" behavior in the demo.
+    return { success: false, error: 'Invalid credentials. Use a demo account: rajesh@college.edu or sharma@iitb.ac.in (any password with 4+ characters).' };
   }
 
   function register(formData) {

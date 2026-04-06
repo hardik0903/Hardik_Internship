@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { titleChoices, departmentChoices, stateChoices } from '../data/mockData';
 import './Profile.css';
@@ -74,11 +75,15 @@ function Profile() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>My Profile | FOSSEE Workshop Portal</title>
+        <meta name="description" content="Manage your FOSSEE account profile, personal and professional information." />
+      </Helmet>
       <div className="profile-container animate-fade-in">
         
         {message && (
-          <div style={{ background: 'rgba(46, 204, 113, 0.15)', color: 'var(--color-success)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-md)', textAlign: 'center', border: '1px solid rgba(46, 204, 113, 0.3)' }}>
-            <span className="material-icons-round" style={{ verticalAlign: 'middle', marginRight: '8px', fontSize: '18px' }}>check_circle</span>
+          <div style={{ background: 'var(--color-accent-soft)', color: 'var(--color-success)', padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-md)', textAlign: 'center', border: '1px solid var(--color-border)' }}>
+            <span className="material-icons-round" aria-hidden="true" style={{ verticalAlign: 'middle', marginRight: '8px', fontSize: '18px' }}>check_circle</span>
             {message}
           </div>
         )}
@@ -94,7 +99,7 @@ function Profile() {
               <div className="profile-badges">
                 {user.isEmailVerified && (
                   <span className="badge badge-accepted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <span className="material-icons-round" style={{ fontSize: '14px' }}>verified</span>
+                    <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '14px' }}>verified</span>
                     Email Verified
                   </span>
                 )}
@@ -155,13 +160,13 @@ function Profile() {
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    <span className="material-icons-round">save</span>
+                    <span className="material-icons-round" aria-hidden="true">save</span>
                     {loading ? 'Saving...' : 'Save Changes'}
                   </button>
                 </>
               ) : (
                 <button type="button" className="btn btn-outline" onClick={() => setIsEditing(true)}>
-                  <span className="material-icons-round">edit</span>
+                  <span className="material-icons-round" aria-hidden="true">edit</span>
                   Edit Profile
                 </button>
               )}

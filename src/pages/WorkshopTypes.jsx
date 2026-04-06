@@ -1,42 +1,48 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import WorkshopCard from '../components/WorkshopCard';
 import Pagination from '../components/Pagination';
 import { useAuth } from '../context/AuthContext';
-import { mockWorkshopTypes } from '../data/mockData';
 import './WorkshopTypes.css';
-
-/*
-  Workshop Types List Page
-
-  This page shows all the available workshop types that coordinators
-  can book. It supports searching by name and pagination.
-
-  If the logged-in user is an instructor, they also see an 
-  "Add Workshop Type" button to create new ones (mirroring Django behavior).
-*/
 
 const ITEMS_PER_PAGE = 6;
 
 function WorkshopTypes() {
   const { isInstructor } = useAuth();
   
+  const [workshopTypes, setWorkshopTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // filter workshops based on search term
-  // using useMemo so we don't recalculate on every render unless needed
+  useEffect(() => {
+    const fetchTypes = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/workshop-types/');
+        if (!response.ok) throw new Error('Failed to fetch workshop types');
+        const data = await response.json();
+        setWorkshopTypes(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTypes();
+  }, []);
+
   const filteredWorkshops = useMemo(() => {
-    if (!searchTerm.trim()) return mockWorkshopTypes;
+    if (!searchTerm.trim()) return workshopTypes;
     
     const lowerSearch = searchTerm.toLowerCase();
-    return mockWorkshopTypes.filter(ws => 
+    return workshopTypes.filter(ws => 
       ws.name.toLowerCase().includes(lowerSearch) ||
       ws.description.toLowerCase().includes(lowerSearch)
     );
-  }, [searchTerm]);
+  }, [searchTerm, workshopTypes]);
 
-  // calculate pagination slice
   const totalPages = Math.ceil(filteredWorkshops.length / ITEMS_PER_PAGE);
   const currentWorkshops = filteredWorkshops.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -51,6 +57,11 @@ function WorkshopTypes() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>Workshop Categories | FOSSEE Portal</title>
+        <meta name="description" content="Browse through technical workshop categories offered by FOSSEE, including Python, Scilab, and OpenFOAM." />
+      </Helmet>
+
       <div className="workshop-list-header">
         <div className="workshop-list-title">
           <h1>Workshop Types</h1>
@@ -59,7 +70,7 @@ function WorkshopTypes() {
         
         <div className="workshop-filters">
           <div className="search-input-wrapper">
-            <span className="material-icons-round">search</span>
+            <span className="material-icons-round" aria-hidden="true">search</span>
             <input 
               type="text" 
               className="input-field" 
@@ -69,18 +80,20 @@ function WorkshopTypes() {
             />
           </div>
           
-          {/* instructors can add new workshops */}
           {isInstructor() && (
             <Link to="/workshops/new" className="btn btn-primary">
-              <span className="material-icons-round">add</span>
+              <span className="material-icons-round" aria-hidden="true">add</span>
               Add Workshop
             </Link>
           )}
         </div>
       </div>
 
-      {/* grid of workshop cards */}
-      {filteredWorkshops.length > 0 ? (
+      {loading ? (
+        <div className="loading-spinner">Loading categories...</div>
+      ) : error ? (
+        <div className="error-message">Error: {error}</div>
+      ) : filteredWorkshops.length > 0 ? (
         <>
           <div className="workshop-grid">
             {currentWorkshops.map(ws => (
@@ -95,9 +108,8 @@ function WorkshopTypes() {
           />
         </>
       ) : (
-        /* empty state if search yields no results */
         <div className="empty-state animate-fade-in">
-          <div className="empty-icon material-icons-round">search_off</div>
+          <div className="empty-icon material-icons-round" aria-hidden="true">search_off</div>
           <h3>No workshops found</h3>
           <p className="text-muted">
             We couldn't find any workshops matching "{searchTerm}". 

@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { mockWorkshopTypes } from '../data/mockData';
 import './WorkshopTypeDetail.css';
@@ -42,6 +43,10 @@ function WorkshopTypeDetail() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>{workshop.name} | FOSSEE Workshops</title>
+        <meta name="description" content={workshop.description.substring(0, 160)} />
+      </Helmet>
       {/* breadcrumb navigation */}
       <div className="mb-lg">
         <Link to="/workshops" style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>

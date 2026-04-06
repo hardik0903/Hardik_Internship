@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { mockWorkshops, mockComments } from '../data/mockData';
 import StatusBadge from '../components/StatusBadge';
@@ -62,9 +63,13 @@ function WorkshopDetail() {
 
   return (
     <div className="container page-content">
+      <Helmet>
+        <title>{workshop.workshopType?.name || 'Workshop'} Booking | FOSSEE</title>
+        <meta name="description" content={`Workshop booking details for ${workshop.workshopType?.name || 'workshop'} on ${workshop.date}`} />
+      </Helmet>
       <div className="mb-lg">
         <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>
-          <span className="material-icons-round" style={{ fontSize: '16px' }}>arrow_back</span>
+          <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '16px' }}>arrow_back</span>
           Back to Dashboard
         </Link>
       </div>
@@ -82,7 +87,7 @@ function WorkshopDetail() {
 
         <div className="instance-meta-grid">
           <div className="meta-box">
-            <span className="material-icons-round">person</span>
+            <span className="material-icons-round" aria-hidden="true">person</span>
             <div className="meta-box-content">
               <h4>Coordinator</h4>
               <p>{workshop.coordinatorName}</p>
@@ -91,7 +96,7 @@ function WorkshopDetail() {
           </div>
 
           <div className="meta-box">
-            <span className="material-icons-round">school</span>
+            <span className="material-icons-round" aria-hidden="true">school</span>
             <div className="meta-box-content">
               <h4>Instructor</h4>
               <p>{workshop.instructorName || 'Not Assigned'}</p>
@@ -99,12 +104,12 @@ function WorkshopDetail() {
           </div>
 
           <div className="meta-box">
-            <span className="material-icons-round">category</span>
+            <span className="material-icons-round" aria-hidden="true">category</span>
             <div className="meta-box-content">
               <h4>Workshop Info</h4>
               <p>{workshop.workshopType?.duration || 1} Days</p>
               <Link to={`/workshops/${workshop.workshopType?.id || 1}`} style={{ fontSize: 'var(--font-size-xs)', display: 'inline-flex', alignItems: 'center', gap: '2px', marginTop: '4px' }}>
-                View Type Details <span className="material-icons-round" style={{ fontSize: '14px' }}>open_in_new</span>
+                View Type Details <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '14px' }}>open_in_new</span>
               </Link>
             </div>
           </div>
@@ -114,15 +119,15 @@ function WorkshopDetail() {
         {isInstructor() && workshop.status === 0 && (
           <div className="action-bar animate-fade-in">
             <button className="btn btn-primary">
-              <span className="material-icons-round">check_circle</span>
+              <span className="material-icons-round" aria-hidden="true">check_circle</span>
               Accept Workshop
             </button>
             <button className="btn btn-outline" style={{ borderColor: 'var(--color-warning)', color: 'var(--color-warning)' }}>
-              <span className="material-icons-round">edit_calendar</span>
+              <span className="material-icons-round" aria-hidden="true">edit_calendar</span>
               Change Date
             </button>
             <button className="btn btn-outline" style={{ borderColor: 'var(--color-error)', color: 'var(--color-error)' }}>
-              <span className="material-icons-round">cancel</span>
+              <span className="material-icons-round" aria-hidden="true">cancel</span>
               Reject
             </button>
           </div>
@@ -132,7 +137,7 @@ function WorkshopDetail() {
       {/* Comments Section */}
       <div className="comments-section animate-fade-in" style={{ animationDelay: '0.1s' }}>
         <h2 className="comments-header">
-          <span className="material-icons-round">forum</span>
+          <span className="material-icons-round" aria-hidden="true">forum</span>
           Discussion ({comments.length})
         </h2>
 

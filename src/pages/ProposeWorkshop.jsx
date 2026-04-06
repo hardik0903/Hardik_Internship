@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { mockWorkshopTypes } from '../data/mockData';
 import './ProposeWorkshop.css';
@@ -94,6 +95,10 @@ function ProposeWorkshop() {
   return (
     <div className="container page-content">
       <div className="propose-container animate-slide-up">
+        <Helmet>
+          <title>Propose Workshop | FOSSEE Portal</title>
+          <meta name="description" content="Submit a workshop proposal for your institute through the FOSSEE portal." />
+        </Helmet>
         <div className="propose-card">
           <div className="propose-header">
             <h1>Propose Workshop</h1>

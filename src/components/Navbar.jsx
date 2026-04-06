@@ -60,7 +60,6 @@ function Navbar() {
   const navLinks = [
     { path: '/', label: 'Home', icon: 'home' },
     { path: '/workshops', label: 'Workshops', icon: 'explore' },
-    { path: '/statistics', label: 'Stats', icon: 'analytics' },
   ];
 
   // figure out the user's initials for the avatar circle

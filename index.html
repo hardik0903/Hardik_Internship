@@ -8,15 +8,14 @@
     <meta name="author" content="Hardik Pandey" />
     <meta name="theme-color" content="#1a1a2e" />
 
-    <!-- using Inter as our primary font — clean and great for readability on screens -->
+    <!-- Fonts: single combined request for Inter + Material Icons Round -->
+    <!-- Using display=swap ensures text remains visible during font load (CLS prevention) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    
-    <!-- material icons for nav and ui elements -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Icons+Round&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Material+Icons+Round&display=swap" />
 
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>FOSSEE Workshop Booking</title>
   </head>
   <body>

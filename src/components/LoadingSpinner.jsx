@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 /*
   LoadingSpinner component
   
@@ -36,5 +38,10 @@ function LoadingSpinner({ message = 'Loading...' }) {
     </div>
   );
 }
+
+LoadingSpinner.propTypes = {
+  /** Text message shown below the spinner */
+  message: PropTypes.string,
+};
 
 export default LoadingSpinner;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import StatusBadge from './StatusBadge';
 import './WorkshopCard.css';
@@ -91,5 +92,15 @@ function WorkshopCard({ workshop, variant = 'type' }) {
     </div>
   );
 }
+
+WorkshopCard.propTypes = {
+  /**
+   * For variant='type': a WorkshopType object { id, name, description, duration }
+   * For variant='instance': a Workshop object { id, workshopType, date, status, coordinatorName, ... }
+   */
+  workshop: PropTypes.object.isRequired,
+  /** Controls which card layout to render */
+  variant: PropTypes.oneOf(['type', 'instance']),
+};
 
 export default WorkshopCard;

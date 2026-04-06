@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 /*
   StatusBadge component
 
@@ -25,5 +27,10 @@ function StatusBadge({ status }) {
     </span>
   );
 }
+
+StatusBadge.propTypes = {
+  /** Numeric status code: 0 = Pending, 1 = Accepted, 2 = Deleted */
+  status: PropTypes.oneOf([0, 1, 2]).isRequired,
+};
 
 export default StatusBadge;

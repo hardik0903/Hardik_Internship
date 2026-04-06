@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -20,5 +21,10 @@ function ProtectedRoute({ children }) {
 
   return children;
 }
+
+ProtectedRoute.propTypes = {
+  /** The page component(s) to render if the user is authenticated */
+  children: PropTypes.node.isRequired,
+};
 
 export default ProtectedRoute;

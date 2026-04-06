@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './Pagination.css';
 
 /*
@@ -67,5 +68,14 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
     </nav>
   );
 }
+
+Pagination.propTypes = {
+  /** Current active page (1-indexed) */
+  currentPage: PropTypes.number.isRequired,
+  /** Total number of pages */
+  totalPages: PropTypes.number.isRequired,
+  /** Callback fired when the user clicks a page button */
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default Pagination;

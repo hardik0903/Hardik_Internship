@@ -22,7 +22,10 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="app-layout">
+          {/* Skip link — lets keyboard users jump straight to content */}
+          <a href="#main-content" className="skip-link">Skip to main content</a>
           <Navbar />
+          <main id="main-content" role="main">
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -68,6 +71,7 @@ function App() {
             {/* Fallback routing */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </main>
           <Footer />
         </div>
       </Router>

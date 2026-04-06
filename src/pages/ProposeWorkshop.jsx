@@ -98,6 +98,10 @@ function ProposeWorkshop() {
         <Helmet>
           <title>Propose Workshop | FOSSEE Portal</title>
           <meta name="description" content="Submit a workshop proposal for your institute through the FOSSEE portal." />
+          <meta property="og:title" content="Propose Workshop | FOSSEE Portal" />
+          <meta property="og:description" content="Submit a workshop proposal for your institute through the FOSSEE portal." />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="FOSSEE Workshop Portal" />
         </Helmet>
         <div className="propose-card">
           <div className="propose-header">

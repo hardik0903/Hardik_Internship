@@ -15,6 +15,10 @@ function Home() {
       <Helmet>
         <title>FOSSEE Workshop Portal | Open Source Learning</title>
         <meta name="description" content="Promoting the use of open source software in educational institutions through hands-on technical workshops." />
+        <meta property="og:title" content="FOSSEE Workshop Portal | Open Source Learning" />
+        <meta property="og:description" content="Promoting the use of open source software in educational institutions through hands-on technical workshops." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
 
       <div className="home-hero animate-slide-up">

@@ -66,6 +66,10 @@ function WorkshopDetail() {
       <Helmet>
         <title>{workshop.workshopType?.name || 'Workshop'} Booking | FOSSEE</title>
         <meta name="description" content={`Workshop booking details for ${workshop.workshopType?.name || 'workshop'} on ${workshop.date}`} />
+        <meta property="og:title" content={`${workshop.workshopType?.name || 'Workshop'} Booking | FOSSEE`} />
+        <meta property="og:description" content={`Workshop booking details for ${workshop.workshopType?.name || 'workshop'} on ${workshop.date}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
       <div className="mb-lg">
         <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>
@@ -118,15 +122,15 @@ function WorkshopDetail() {
         {/* Instructor Action Bar */}
         {isInstructor() && workshop.status === 0 && (
           <div className="action-bar animate-fade-in">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" aria-label="Accept this workshop booking">
               <span className="material-icons-round" aria-hidden="true">check_circle</span>
               Accept Workshop
             </button>
-            <button className="btn btn-outline" style={{ borderColor: 'var(--color-warning)', color: 'var(--color-warning)' }}>
+            <button className="btn btn-outline" style={{ borderColor: 'var(--color-warning)', color: 'var(--color-warning)' }} aria-label="Request a date change for this workshop">
               <span className="material-icons-round" aria-hidden="true">edit_calendar</span>
               Change Date
             </button>
-            <button className="btn btn-outline" style={{ borderColor: 'var(--color-error)', color: 'var(--color-error)' }}>
+            <button className="btn btn-outline" style={{ borderColor: 'var(--color-error)', color: 'var(--color-error)' }} aria-label="Reject this workshop booking">
               <span className="material-icons-round" aria-hidden="true">cancel</span>
               Reject
             </button>

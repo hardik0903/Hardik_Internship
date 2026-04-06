@@ -78,6 +78,10 @@ function Profile() {
       <Helmet>
         <title>My Profile | FOSSEE Workshop Portal</title>
         <meta name="description" content="Manage your FOSSEE account profile, personal and professional information." />
+        <meta property="og:title" content="My Profile | FOSSEE Workshop Portal" />
+        <meta property="og:description" content="Manage your FOSSEE account profile, personal and professional information." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
       <div className="profile-container animate-fade-in">
         

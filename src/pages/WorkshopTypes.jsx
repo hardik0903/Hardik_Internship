@@ -60,6 +60,10 @@ function WorkshopTypes() {
       <Helmet>
         <title>Workshop Categories | FOSSEE Portal</title>
         <meta name="description" content="Browse through technical workshop categories offered by FOSSEE, including Python, Scilab, and OpenFOAM." />
+        <meta property="og:title" content="Workshop Categories | FOSSEE Portal" />
+        <meta property="og:description" content="Browse through technical workshop categories offered by FOSSEE, including Python, Scilab, and OpenFOAM." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
 
       <div className="workshop-list-header">

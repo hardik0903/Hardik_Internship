@@ -46,6 +46,10 @@ function WorkshopTypeDetail() {
       <Helmet>
         <title>{workshop.name} | FOSSEE Workshops</title>
         <meta name="description" content={workshop.description.substring(0, 160)} />
+        <meta property="og:title" content={`${workshop.name} | FOSSEE Workshops`} />
+        <meta property="og:description" content={workshop.description.substring(0, 160)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
       {/* breadcrumb navigation */}
       <div className="mb-lg">
@@ -130,7 +134,12 @@ function WorkshopTypeDetail() {
                   <a href="#" className="attachment-name" onClick={(e) => e.preventDefault()}>
                     {file.name}
                   </a>
-                  <button className="btn-outline" style={{ padding: '4px', border: 'none', background: 'none', color: 'var(--color-text-muted)' }} title="Download">
+                  <button
+                    className="btn-outline"
+                    style={{ padding: '4px', border: 'none', background: 'none', color: 'var(--color-text-muted)' }}
+                    aria-label={`Download ${file.name}`}
+                    title={`Download ${file.name}`}
+                  >
                     <span className="material-icons-round" aria-hidden="true" style={{ fontSize: '18px' }}>download</span>
                   </button>
                 </li>

@@ -127,6 +127,10 @@ function Register() {
       <Helmet>
         <title>Create Account | FOSSEE Workshop Portal</title>
         <meta name="description" content="Register as a coordinator or instructor to join the FOSSEE network and promote open source education." />
+        <meta property="og:title" content="Create Account | FOSSEE Workshop Portal" />
+        <meta property="og:description" content="Register as a coordinator or instructor to join the FOSSEE network and promote open source education." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FOSSEE Workshop Portal" />
       </Helmet>
 
       <div className="register-card animate-slide-up">

@@ -434,6 +434,23 @@ textarea.input-field {
   animation: slideUp 0.5s ease forwards;
 }
 
+/* ---- accessibility: respect user motion preferences ---- */
+/*
+  Users with vestibular disorders can set "Reduce motion" in their OS.
+  This disables all non-essential animations for those users,
+  per WCAG 2.1 Success Criterion 2.3.3.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ---- responsive breakpoints ---- */
 /* 
   We're designing mobile-first, which means the base styles are for

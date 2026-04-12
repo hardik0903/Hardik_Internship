@@ -43,3 +43,4 @@ fake_backend/
 # Keep screenshots tracked
 !screenshots/
 !screenshots/**/*.png
+!screenshots/**/*.webp

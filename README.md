@@ -2,6 +2,12 @@
 
 React + Django redesign of the FOSSEE workshop booking portal. The goal of this submission is to modernize usability, add mobile-first responsiveness, and keep the data flow honest by reading workshops from the Django backend's REST API.
 
+## 🎬 Live Demo Walkthrough
+
+An end-to-end walkthrough demonstrating authentication, dashboard filtering, and workshop discovery integrated with the real FOSSEE Django APIs.
+
+![FOSSEE App Walkthrough](screenshots/demo/fossee_demo.webp)
+
 ## Highlights
 
 - Mobile-first redesign for Home, Login, Registration, Workshop Discovery, Dashboard, and Profile pages.

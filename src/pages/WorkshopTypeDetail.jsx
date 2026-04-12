@@ -1,26 +1,39 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
-import { mockWorkshopTypes } from '../data/mockData';
+import { useState, useEffect } from 'react';
 import './WorkshopTypeDetail.css';
-
-/*
-  Workshop Type Detail Page
-
-  Shows the full details for a workshop type based on the ID in the URL.
-  If the user is a coordinator, they see a "Propose Workshop" button.
-  If the user is an instructor, they see an "Edit" button.
-*/
 
 function WorkshopTypeDetail() {
   const { id } = useParams();
   const { user, isInstructor } = useAuth();
   const navigate = useNavigate();
 
-  // find the workshop from our mock data
-  const workshop = mockWorkshopTypes.find(ws => ws.id === parseInt(id));
+  const [workshop, setWorkshop] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!workshop) {
+  useEffect(() => {
+    const fetchType = async () => {
+      try {
+        const response = await fetch(`/api/workshop-types/${id}/`);
+        if (!response.ok) throw new Error('Workshop not found');
+        const data = await response.json();
+        setWorkshop(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchType();
+  }, [id]);
+
+  if (loading) {
+    return <div className="container page-content"><div className="loading-spinner">Loading...</div></div>;
+  }
+
+  if (error || !workshop) {
     return (
       <div className="container page-content">
         <div className="empty-state">

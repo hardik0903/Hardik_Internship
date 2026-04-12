@@ -22,3 +22,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+db.sqlite3
+django_backend/venv/
+
+# Reference repo (not part of submission)
+_shivani_repo/
+
+# Temp files
+clean_log.txt
+log.txt
+traceback.txt
+error_node.txt
+fake_backend/
+
+# Keep screenshots tracked
+!screenshots/
+!screenshots/**/*.png

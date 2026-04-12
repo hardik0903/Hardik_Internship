@@ -1,21 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import {
-  departmentChoices,
-  titleChoices,
-  stateChoices,
-  sourceChoices,
-} from '../data/mockData';
 import './Register.css';
-
-/*
-  Register Page
-  
-  Comprehensive registration form with section-based navigation and full
-  accessibility features.
-*/
 
 function Register() {
   const { register } = useAuth();
@@ -37,8 +24,31 @@ function Register() {
     source: 'Google',
   });
 
+  // Choices fetched from Django backend
+  const [choices, setChoices] = useState({
+    titles: [],
+    departments: [],
+    states: [],
+    sources: [],
+  });
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchChoices = async () => {
+      try {
+        const response = await fetch('/api/form-choices/');
+        if (response.ok) {
+          const data = await response.json();
+          setChoices(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch form choices:', err);
+      }
+    };
+    fetchChoices();
+  }, []);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -102,7 +112,7 @@ function Register() {
     );
   }
 
-  function renderSelect(label, name, choices) {
+  function renderSelect(label, name, choiceList) {
     return (
       <div className="form-group">
         <label htmlFor={`register-${name}`}>{label}</label>
@@ -114,7 +124,7 @@ function Register() {
           onChange={handleChange}
           aria-required="true"
         >
-          {choices.map(opt => (
+          {choiceList.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
@@ -157,8 +167,8 @@ function Register() {
           <div className="form-section">
             <div className="form-section-title">Professional Information</div>
             <div className="form-row">
-              {renderSelect('Title', 'title', titleChoices)}
-              {renderSelect('Department', 'department', departmentChoices)}
+              {renderSelect('Title', 'title', choices.titles)}
+              {renderSelect('Department', 'department', choices.departments)}
             </div>
             {renderField('Institute / College', 'institute', 'text', 'e.g. IIT Bombay')}
 
@@ -199,8 +209,8 @@ function Register() {
               {renderField('City / Place', 'location', 'text', 'Mumbai')}
             </div>
             <div className="form-row">
-              {renderSelect('State', 'state', stateChoices)}
-              {renderSelect('How did you hear about us?', 'source', sourceChoices)}
+              {renderSelect('State', 'state', choices.states)}
+              {renderSelect('How did you hear about us?', 'source', choices.sources)}
             </div>
           </div>
 

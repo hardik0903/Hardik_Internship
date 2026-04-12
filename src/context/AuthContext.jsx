@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { mockUsers } from '../data/mockData';
+
 
 /*
   AuthContext
@@ -16,13 +16,47 @@ import { mockUsers } from '../data/mockData';
 
 const AuthContext = createContext(null);
 
+// Demo credentials kept explicitly for frontend-only auth fallback
+const demoUsers = [
+  {
+    id: 1,
+    username: 'rajesh.coordinator',
+    email: 'rajesh@college.edu',
+    firstName: 'Rajesh',
+    lastName: 'Kumar',
+    position: 'coordinator',
+    title: 'Mr',
+    institute: 'Delhi Technological University',
+    department: 'computer engineering',
+    phone: '9876543210',
+    state: 'IN-DL',
+    location: 'Delhi',
+    isEmailVerified: true,
+  },
+  {
+    id: 2,
+    username: 'prof.sharma',
+    email: 'sharma@iitb.ac.in',
+    firstName: 'Anita',
+    lastName: 'Sharma',
+    position: 'instructor',
+    title: 'Professor',
+    institute: 'IIT Bombay',
+    department: 'mechanical engineering',
+    phone: '9123456789',
+    state: 'IN-MH',
+    location: 'Mumbai',
+    isEmailVerified: true,
+  },
+];
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   // try to find a matching user from our mock data
   function login(email, password) {
     // in a real app, this would be an API call to the Django backend
-    const found = mockUsers.find(u => u.email === email);
+    const found = demoUsers.find(u => u.email === email);
     
     if (found) {
       setUser(found);

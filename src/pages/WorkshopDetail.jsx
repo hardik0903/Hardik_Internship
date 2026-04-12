@@ -1,35 +1,53 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
-import { mockWorkshops, mockComments } from '../data/mockData';
 import StatusBadge from '../components/StatusBadge';
 import './WorkshopDetail.css';
-
-/*
-  Workshop Detail Page
-  
-  Shows the details of a specific workshop booking (instance).
-  Instructors can see an action bar to Accept/Reject/Change Date.
-  It also includes a comment section mimicking the Django implementation.
-*/
 
 function WorkshopDetail() {
   const { id } = useParams();
   const { user, isInstructor } = useAuth();
   
-  // Find the workshop instance
-  const workshop = mockWorkshops.find(ws => ws.id === parseInt(id));
-  
-  // Find comments for this workshop
-  const [comments, setComments] = useState(
-    mockComments.filter(c => c.workshopId === parseInt(id))
-  );
+  const [workshop, setWorkshop] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [newComment, setNewComment] = useState('');
   const [isPublic, setIsPublic] = useState(true);
 
-  if (!workshop) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [wsRes, commentsRes] = await Promise.all([
+          fetch(`/api/workshops/${id}/`),
+          fetch(`/api/comments/`)
+        ]);
+        
+        if (!wsRes.ok) throw new Error('Workshop not found');
+        const wsData = await wsRes.json();
+        setWorkshop(wsData);
+
+        if (commentsRes.ok) {
+          const commentsData = await commentsRes.json();
+          // Assuming comment has workshop or workshop_id field
+          setComments(commentsData.filter(c => c.workshop === parseInt(id) || c.workshopId === parseInt(id) || c.workshop_id === parseInt(id)));
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (loading) {
+    return <div className="container page-content"><div className="loading-spinner">Loading...</div></div>;
+  }
+
+  if (error || !workshop) {
     return (
       <div className="container page-content">
         <div className="empty-state">

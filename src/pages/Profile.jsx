@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
-import { titleChoices, departmentChoices, stateChoices } from '../data/mockData';
 import './Profile.css';
 
 /*
   Profile Page
 
   Allows users to view and edit their profile information.
-  Re-uses the dropdown options from our mockData to keep things consistent.
+  Dropdown options are fetched from the Django backend /api/form-choices/ endpoint.
 */
 
 function Profile() {
@@ -25,9 +24,31 @@ function Profile() {
     state: user?.state || '',
     location: user?.location || '',
   });
+
+  // Choices fetched from Django backend
+  const [choices, setChoices] = useState({
+    titles: [],
+    departments: [],
+    states: [],
+  });
   
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const fetchChoices = async () => {
+      try {
+        const response = await fetch('/api/form-choices/');
+        if (response.ok) {
+          const data = await response.json();
+          setChoices(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch form choices:', err);
+      }
+    };
+    fetchChoices();
+  }, []);
 
   if (!user) return null;
 
@@ -42,12 +63,10 @@ function Profile() {
     
     // Simulate API save
     setTimeout(() => {
-      // In a real app we'd update context/backend here
       setLoading(false);
       setIsEditing(false);
       setMessage('Profile updated successfully!');
       
-      // Clear success message after 3 seconds
       setTimeout(() => setMessage(''), 3000);
     }, 800);
   }
@@ -123,7 +142,7 @@ function Profile() {
               <div className="form-group">
                 <label>Title</label>
                 <select name="title" className="input-field" value={formData.title} onChange={handleChange} disabled={!isEditing}>
-                  {titleChoices.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                  {choices.titles.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                 </select>
               </div>
               {renderField('First Name', 'firstName')}
@@ -139,7 +158,7 @@ function Profile() {
               <div className="form-group">
                 <label>Department</label>
                 <select name="department" className="input-field" value={formData.department} onChange={handleChange} disabled={!isEditing}>
-                  {departmentChoices.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                  {choices.departments.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                 </select>
               </div>
             </div>
@@ -151,7 +170,7 @@ function Profile() {
               <div className="form-group">
                 <label>State</label>
                 <select name="state" className="input-field" value={formData.state} onChange={handleChange} disabled={!isEditing}>
-                  {stateChoices.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                  {choices.states.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                 </select>
               </div>
               {renderField('City / Location', 'location')}

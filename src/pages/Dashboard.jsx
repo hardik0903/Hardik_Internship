@@ -15,7 +15,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchWorkshops = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/workshops/');
+        const response = await fetch('/api/workshops/');
         if (!response.ok) throw new Error('Failed to fetch workshops');
         const data = await response.json();
         setWorkshops(data);

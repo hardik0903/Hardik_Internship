@@ -2,23 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
-import { mockWorkshopTypes } from '../data/mockData';
 import './ProposeWorkshop.css';
-
-/*
-  Propose Workshop Page
-  
-  Coordinators use this form to request a workshop on a specific date.
-  If they navigated here from a specific WorkshopTypeDetail page,
-  we pre-select that workshop type for them using router state.
-*/
 
 function ProposeWorkshop() {
   const { user, isInstructor } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // If the user got here from a specific template, pre-select it
   const preSelectedId = location.state?.workshopTypeId || '';
 
   const [formData, setFormData] = useState({
@@ -27,18 +17,35 @@ function ProposeWorkshop() {
     tncAccepted: false,
   });
 
+  const [workshopTypes, setWorkshopTypes] = useState([]);
+  const [typesLoading, setTypesLoading] = useState(true);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // Instructors shouldn't be proposing workshops
   useEffect(() => {
     if (isInstructor()) {
       navigate('/dashboard');
     }
   }, [isInstructor, navigate]);
 
-  // Find the selected workshop type so we can display its specific T&C
-  const selectedType = mockWorkshopTypes.find(
+  useEffect(() => {
+    const fetchTypes = async () => {
+      try {
+        const response = await fetch('/api/workshop-types/');
+        if (response.ok) {
+          const data = await response.json();
+          setWorkshopTypes(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch workshop types:', err);
+      } finally {
+        setTypesLoading(false);
+      }
+    };
+    fetchTypes();
+  }, []);
+
+  const selectedType = workshopTypes.find(
     ws => ws.id === parseInt(formData.workshopTypeId)
   );
 
@@ -86,7 +93,7 @@ function ProposeWorkshop() {
 
     // simulate API call
     setTimeout(() => {
-      // Intentionally not adding to mockData permanently since it resets on reload anyway
+      // Simulated submission — in production this would POST to Django
       navigate('/dashboard');
       setLoading(false);
     }, 800);
@@ -123,7 +130,8 @@ function ProposeWorkshop() {
                 aria-invalid={!!errors.workshopTypeId}
               >
                 <option value="" disabled>Select a workshop...</option>
-                {mockWorkshopTypes.map(ws => (
+                {typesLoading && <option value="" disabled>Loading workshops...</option>}
+                {!typesLoading && workshopTypes.map(ws => (
                   <option key={ws.id} value={ws.id}>{ws.name}</option>
                 ))}
               </select>

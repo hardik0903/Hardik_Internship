@@ -20,7 +20,7 @@ function WorkshopTypes() {
   useEffect(() => {
     const fetchTypes = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/workshop-types/');
+        const response = await fetch('/api/workshop-types/');
         if (!response.ok) throw new Error('Failed to fetch workshop types');
         const data = await response.json();
         setWorkshopTypes(data);

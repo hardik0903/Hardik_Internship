@@ -159,13 +159,13 @@ I used Grid and Flexbox so the same components reflow naturally instead of maint
 
 ## Reflection
 
-### What design principles guided the improvements?
+### What design principles guided your improvements?
 I followed three things throughout: mobile-first layout, clear action hierarchy, and consistent visual identity. Every decision came down to "can a first-time student understand the next step quickly?" I used a 7-step type scale and 4px base spacing unit to keep rhythm consistent. Touch targets all meet the WCAG 2.1 minimum of 44×44px.
 
 ### How did you ensure responsiveness across devices?
 I tested each page in mobile and desktop widths while building it, not just at the end. I used responsive Grid/Flex patterns and adjusted breakpoints mainly for the header, auth forms, and workshop cards. Navigation becomes a slide-in drawer on mobile. Forms go single-column. Workshop cards reflow from 1 → 2 → 3 columns.
 
-### What trade-offs did you make between design and performance?
+### What trade-offs did you make between the design and performance?
 I intentionally skipped animation-heavy UI patterns and heavy component libraries. The design uses vanilla CSS with custom properties instead of Tailwind or styled-components. Google Fonts are loaded via CDN with `preload` — this costs one external request but benefits from global cache hit rates. All animations honor `prefers-reduced-motion`.
 
 ### What was the most challenging part of the task and how did you approach it?

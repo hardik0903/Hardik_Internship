@@ -116,13 +116,17 @@ function Login() {
           </p>
         </div>
 
-        {/* demo info so people can actually test the app */}
+        {/* Demo-only auth — no real backend session is created */}
         <div className="demo-hint">
-          <strong>Demo Accounts:</strong>
+          <strong>Demo Login</strong> — no real authentication; only these accounts work:
           <br />
-          <strong>Coordinator:</strong> rajesh@college.edu (any password, min 4 chars)
+          <strong>Coordinator:</strong> rajesh@college.edu
           <br />
-          <strong>Instructor:</strong> sharma@iitb.ac.in (any password, min 4 chars)
+          <strong>Instructor:</strong> sharma@iitb.ac.in
+          <br />
+          <span style={{ fontSize: 'var(--font-size-xs)' }}>
+            Password: any text, minimum 4 characters. Not verified against a stored hash.
+          </span>
         </div>
       </div>
     </div>

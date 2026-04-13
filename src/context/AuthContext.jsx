@@ -53,19 +53,23 @@ const demoUsers = [
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // try to find a matching user from the demo credentials
+  // Demo-only login — matches against the two hardcoded accounts above.
+  // In production, this would POST to the Django backend's auth endpoint.
   function login(email, password) {
-    // in a real app, this would be an API call to the Django backend
+    // Validate inputs before checking credentials
+    if (!email || !password || password.length < 4) {
+      return { success: false, error: 'Please enter a valid email and a password with at least 4 characters.' };
+    }
+
     const found = demoUsers.find(u => u.email === email);
-    
+
     if (found) {
       setUser(found);
       return { success: true };
     }
-    
-    // Only known demo accounts can log in — unknown credentials always fail.
-    // This prevents misleading "any email works" behavior in the demo.
-    return { success: false, error: 'Invalid credentials. Use a demo account: rajesh@college.edu or sharma@iitb.ac.in (any password with 4+ characters).' };
+
+    // Unknown email — reject explicitly
+    return { success: false, error: 'Unknown account. This demo accepts only: rajesh@college.edu (coordinator) or sharma@iitb.ac.in (instructor).' };
   }
 
   function register(formData) {

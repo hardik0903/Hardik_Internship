@@ -196,7 +196,7 @@ fossee-workshop-booking/
 ├── src/
 │   ├── components/          # Navbar, Footer, WorkshopCard, StatusBadge, etc.
 │   ├── context/             # AuthContext (demo auth), ThemeContext (dark/light)
-│   ├── data/                # constants.js (form dropdown options)
+│   ├── routes/              # ProtectedRoute (auth guard wrapper)
 │   ├── pages/               # Home, Login, Register, Dashboard, Workshops, etc.
 │   ├── App.jsx              # Router setup, skip-nav, route definitions
 │   ├── index.css            # Design tokens, global styles, utility classes
@@ -220,6 +220,18 @@ fossee-workshop-booking/
 - **Escape key** — mobile drawer and user dropdown close on Escape
 - **`prefers-reduced-motion`** — all animations disabled for vestibular disorder users
 - **Tab roles** — Dashboard uses `role="tablist"`, `role="tab"`, `aria-selected`
+
+## Demo-Only Behavior
+
+The following UI features are **client-side placeholders** included to showcase the interface. They are clearly labeled in code comments and, where appropriate, in the UI itself.
+
+| Feature | Location | What happens |
+|---------|----------|--------------|
+| Attachments (Resources sidebar) | Workshop Type Detail page | Generated client-side from the workshop name. Labeled "(demo)" in the heading. |
+| Comments / Discussion | Workshop Booking Detail page | Stored in component state only, not persisted to the server. Labeled "(demo - not persisted)" in the heading. |
+| Proposal submission | Propose Workshop form | Simulated with a timeout redirect. A note below the button says "Demo mode." |
+| Authentication | Login page | Only two hardcoded demo accounts are accepted. The error message names them explicitly. |
+| Registration | Register page | Creates a local-only user object in React state, no server call. |
 
 ## License
 

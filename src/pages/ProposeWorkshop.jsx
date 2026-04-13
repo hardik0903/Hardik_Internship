@@ -91,9 +91,9 @@ function ProposeWorkshop() {
 
     setLoading(true);
 
-    // simulate API call
+    // Demo placeholder — in production this would POST to /api/workshops/
+    // and the Django backend would create the booking record.
     setTimeout(() => {
-      // Simulated submission — in production this would POST to Django
       navigate('/dashboard');
       setLoading(false);
     }, 800);
@@ -186,6 +186,9 @@ function ProposeWorkshop() {
             <button type="submit" className="btn btn-primary btn-full-width" disabled={loading}>
               {loading ? 'Submitting Proposal...' : 'Submit Proposal'}
             </button>
+            <p className="text-muted" style={{ fontSize: 'var(--font-size-xs)', textAlign: 'center', marginTop: 'var(--space-sm)' }}>
+              Demo mode — proposal is simulated and not sent to the server.
+            </p>
           </form>
         </div>
       </div>

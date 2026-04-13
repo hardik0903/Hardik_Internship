@@ -48,8 +48,10 @@ function WorkshopTypeDetail() {
     );
   }
 
-  // mock attachments for demonstration
-  const mockAttachments = [
+  // Demo placeholder — these attachments are generated client-side to
+  // showcase the UI. In production, they would come from the Django API's
+  // /api/workshop-types/:id/attachments/ endpoint.
+  const demoAttachments = [
     { id: 1, name: `${workshop.name.replace(/\s+/g, '_')}_Schedule.pdf` },
     { id: 2, name: 'Prerequisites_Guide.pdf' }
   ];
@@ -134,6 +136,7 @@ function WorkshopTypeDetail() {
             <h3>
               <span className="material-icons-round" aria-hidden="true">folder_zip</span>
               Resources
+              <span className="text-muted" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 'normal', marginLeft: '6px' }}>(demo)</span>
             </h3>
             
             <p className="text-muted" style={{ fontSize: 'var(--font-size-sm)', marginBottom: 'var(--space-md)' }}>
@@ -141,7 +144,7 @@ function WorkshopTypeDetail() {
             </p>
 
             <ul className="attachment-list">
-              {mockAttachments.map(file => (
+              {demoAttachments.map(file => (
                 <li key={file.id} className="attachment-item">
                   <span className="material-icons-round" aria-hidden="true">picture_as_pdf</span>
                   <a href="#" className="attachment-name" onClick={(e) => e.preventDefault()}>

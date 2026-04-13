@@ -62,6 +62,8 @@ function WorkshopDetail() {
     );
   }
 
+  // Demo placeholder — comments are stored in component state only.
+  // In production, this would POST to /api/comments/ and refetch.
   function handleAddComment(e) {
     e.preventDefault();
     if (!newComment.trim()) return;
@@ -161,6 +163,7 @@ function WorkshopDetail() {
         <h2 className="comments-header">
           <span className="material-icons-round" aria-hidden="true">forum</span>
           Discussion ({comments.length})
+          <span className="text-muted" style={{ fontSize: 'var(--font-size-xs)', fontWeight: 'normal', marginLeft: '8px' }}>(demo — not persisted)</span>
         </h2>
 
         <div className="comments-list">

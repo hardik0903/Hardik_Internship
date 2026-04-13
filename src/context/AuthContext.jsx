@@ -6,7 +6,7 @@ import { createContext, useContext, useState } from 'react';
   
   This handles all the authentication state for the app. In a real app,
   this would talk to the Django backend for login/register/logout.
-  For our redesign, we're using mock data to simulate these flows.
+  For this redesign, I use demo credentials to simulate these flows.
   
   Why Context? Because multiple components need to know who's logged in
   (Navbar shows the user name, Dashboard shows different views for
@@ -53,7 +53,7 @@ const demoUsers = [
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // try to find a matching user from our mock data
+  // try to find a matching user from the demo credentials
   function login(email, password) {
     // in a real app, this would be an API call to the Django backend
     const found = demoUsers.find(u => u.email === email);

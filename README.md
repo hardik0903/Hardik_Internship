@@ -1,10 +1,10 @@
 # FOSSEE Workshop Booking UI
 
-React + Django redesign of the FOSSEE workshop booking portal. The goal of this submission is to modernize usability, add mobile-first responsiveness, and keep the data flow honest by reading workshops from the Django backend's REST API.
+React + Django redesign of the FOSSEE workshop booking portal. Workshop listings and detail pages are served from the Django REST API. Authentication, proposal submission, and comment threads are demo-only simulations running entirely in the browser.
 
 ## 🎬 Live Demo Walkthrough
 
-An end-to-end walkthrough demonstrating authentication, dashboard filtering, and workshop discovery integrated with the real FOSSEE Django APIs.
+An end-to-end walkthrough demonstrating demo login, dashboard filtering, and workshop discovery. Workshop data is fetched from Django; auth and interaction flows are simulated client-side.
 
 ![FOSSEE App Walkthrough](screenshots/demo/fossee_demo_v2.webp)
 
@@ -12,7 +12,7 @@ An end-to-end walkthrough demonstrating authentication, dashboard filtering, and
 
 - Mobile-first redesign for Home, Login, Registration, Workshop Discovery, Dashboard, and Profile pages.
 - Dark-themed visual identity using a carefully tuned palette: deep indigo `#0f0f1a` and warm coral `#e94560`.
-- Real backend integration for workshop listing, detail, and dashboard via Django REST Framework endpoints.
+- Backend integration for workshop listing and detail pages via Django REST Framework endpoints (auth and write operations are demo-only).
 - Proper loading, error, and empty states for transparent UX when backend data varies.
 - Accessible UI with skip navigation, ARIA labels, focus management, and `prefers-reduced-motion` support.
 - Per-page SEO via `react-helmet-async` with dynamic titles, meta descriptions, and Open Graph tags.
@@ -59,14 +59,14 @@ Note: Vite is configured to proxy `/api` and `/workshop` requests to Django duri
 
 ### Demo Credentials
 
-> This is a frontend demo with controlled authentication. Only the two accounts below can log in.
+> This is a **demo-only login**. No real session or token is created. The auth context matches the email against two hardcoded accounts and checks that the password is at least 4 characters. The password is not hashed or verified against a stored value.
 
 | Role | Email | Password |
 |------|-------|----------|
-| Coordinator | `rajesh@college.edu` | any (min 4 chars) |
-| Instructor | `sharma@iitb.ac.in` | any (min 4 chars) |
+| Coordinator | `rajesh@college.edu` | any text, min 4 characters (not verified against a hash) |
+| Instructor | `sharma@iitb.ac.in` | any text, min 4 characters (not verified against a hash) |
 
-Unknown emails are rejected — no permissive fallback exists.
+Unknown emails are rejected. No permissive fallback exists.
 
 ## Before and After
 
